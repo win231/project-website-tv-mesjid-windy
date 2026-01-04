@@ -194,6 +194,7 @@ marquee {
 @media (max-width: 1024px) {
     .main {
         margin-top: 320px;
+        padding-bottom: 80px;
     }
 
     .sholat-grid {
@@ -204,7 +205,8 @@ marquee {
 @media (max-width: 768px) {
 
     body {
-        overflow: auto;
+        overflow-y: auto;
+        overflow-x: hidden;
     }
 
     /* HEADER */
@@ -270,31 +272,21 @@ marquee {
     }
 }
 
-/* buat hp biar sholat grid radiusnya sama */
-@media (max-width: 480px) {
-
+/* Tablet */
+@media (max-width: 1024px) {
     .sholat-grid {
-        grid-template-columns: 1fr;
-    }
-
-    .card h3 {
-        font-size: 16px;
-    }
-
-    .card span {
-        font-size: 20px;
+        grid-template-columns: repeat(3, 1fr);
     }
 }
 
+/* HP - 2 kolom, 3 baris */
 @media (max-width: 768px) {
-
     .sholat-grid {
         grid-template-columns: repeat(2, 1fr);
+        padding-bottom: 100px;
     }
 
-    .sholat-grid .card,
-    .sholat-grid .card:first-child,
-    .sholat-grid .card:last-child {
+    .sholat-grid .card {
         border-radius: 12px !important;
     }
 }
