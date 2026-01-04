@@ -1,0 +1,547 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>TV Masjid Digital</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,100..900;1,100..900&family=Orbitron:wght@400..900&family=Roboto+Flex:opsz,wght,XOPQ,XTRA,YOPQ,YTDE,YTFI,YTLC,YTUC@8..144,100..1000,96,468,79,-203,738,514,712&display=swap" rel="stylesheet">
+
+<style>
+body {
+    margin: 0;
+    font-family: 'Segoe UI', sans-serif; 
+    background: black;
+    color: white;
+    overflow: hidden;
+}
+
+.bg {
+    position: fixed;
+    inset: 0;
+    background-size: cover;
+    background-position: center;
+    filter: brightness(45%);
+    z-index: -1;
+}
+
+.header-wrapper {
+    position: relative;
+}
+
+.card-header {
+    display: flex;
+    justify-content: space-between;
+    padding: 28px;
+    background: rgba(40,40,39,0.8);
+    margin: 0 14px;
+    border-radius: 0 0 40px 40px;
+}
+
+.logo {
+    width: 60px;
+    margin-right: 8px; 
+    display: block;
+}
+
+.masjid {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    padding-left: 30px;
+}
+
+.masjid-text h2 {
+    margin: 0;
+    font-weight: bold;
+}
+
+.masjid-text small{
+    font-style: italic;
+}
+
+.clock {
+    text-align: right;
+}
+
+.card-clock {
+    position: absolute;
+    top: 0;         
+    right: 14px;     
+    /* border: 1px solid white; */
+    border-top: none;
+    background: rgba(44,44,43,0.85);
+    border-radius: 0 0 15px 15px;
+    padding: 30px 18px;
+    min-width: 220px;
+    text-align: center;
+}
+
+.card-clockTime {
+    font-size: 28px;
+    font-weight: bold;
+    font-family: "Orbitron", sans-serif;
+    color: orange;
+    border: 2px solid orange;
+    background: rgb(50,50,49);
+    border-radius: 8px;
+    padding: 4px 8px;
+}
+
+.clock-date {
+    font-size: 16px;
+    margin-top: 6px;
+    opacity: 0.9;
+}
+
+.main {
+    margin-top: 274px;
+    /* padding: 20px; */
+}
+
+.countdownAll {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 24px;
+}
+
+.card-ramadhan {
+    font-style: italic;
+    font-size: 18px;
+    background: rgba(128, 128, 128, 0.8);
+    border-left: 5px solid white;
+    border-radius: 0 18px 18px 0;
+    padding: 3px 22px;
+}
+
+.sholat-grid {
+    font-family: "Montserrat", sans-serif;
+    display: grid;
+    grid-template-columns: repeat(6, 1fr);
+    gap: 14px;
+    margin-top: 20px;
+    padding: 20px;
+}
+
+.sholat-grid .card:first-child {
+    border-radius: 50px 10px 10px 50px;
+}
+
+.sholat-grid .card:last-child {
+    border-radius: 10px 50px 50px 10px;
+}
+
+.card-sholat {
+    font-size: 20px;
+    background: orange;
+    color: white;
+    border-radius: 10px 0 0 10px;
+    text-align: center;
+    padding: 10px 20px;
+    font-family: "Orbitron", sans-serif;
+    font-weight: bold;
+}
+
+.card {
+    background: rgba(44,44,43,0.8);
+    border-radius: 10px;
+    text-align: center;
+    padding: 18px;
+}
+
+.card h3 {
+    margin: 0;
+    font-size: 18px;
+    padding-top: 0px;
+    padding-bottom: 12px;
+}
+
+.card span {
+    font-size: 28px;
+    font-weight: bold;
+    font-family: "Orbitron", sans-serif;
+    color: orange;
+    border: 2px solid orange;
+    background: rgb(50,50,49);
+    border-radius: 8px;
+    padding: 4px 8px;
+}
+
+.highlight {
+    background: orange;
+    color: black;
+}
+
+.marquee {
+    position: fixed;
+    bottom: 0;
+    width: 100%;
+    background: black;
+    color: orange;
+    font-size: 20px;
+    padding: 10px 0;
+}
+
+marquee {
+    behavior: scroll;
+    direction: left;
+}
+
+/* buat responsive */
+
+@media (max-width: 1024px) {
+    .main {
+        margin-top: 320px;
+    }
+
+    .sholat-grid {
+        grid-template-columns: repeat(3, 1fr);
+    }
+}
+
+@media (max-width: 768px) {
+
+    body {
+        overflow: auto;
+    }
+
+    /* HEADER */
+    .card-header {
+        flex-direction: column;
+        align-items: flex-start;
+        padding: 20px;
+        gap: 12px;
+    }
+
+    .masjid {
+        padding-left: 0;
+    }
+
+    /* clock turun ketengah */
+    .card-clock {
+        position: relative;
+        right: auto;
+        top: auto;
+        margin: 16px auto 0;
+        width: fit-content;
+    }
+
+    .main {
+        margin-top: 40px;
+        padding: 0 10px;
+    }
+
+    /* countdown */
+    .countdownAll {
+        flex-direction: column;
+        gap: 14px;
+        align-items: stretch;
+    }
+
+    .card-sholat {
+        border-radius: 10px;
+        text-align: center;
+    }
+
+    /* grid sholat */
+    .sholat-grid {
+        grid-template-columns: repeat(2, 1fr);
+        padding: 10px;
+    }
+
+    /* font scale */
+    .card span {
+        font-size: 22px;
+    }
+
+    .card-clockTime {
+        font-size: 24px;
+    }
+
+    .clock-date {
+        font-size: 14px;
+    }
+
+    /* marguee */
+    .marquee {
+        font-size: 16px;
+    }
+}
+
+/* buat hp biar sholat grid radiusnya sama */
+@media (max-width: 480px) {
+
+    .sholat-grid {
+        grid-template-columns: 1fr;
+    }
+
+    .card h3 {
+        font-size: 16px;
+    }
+
+    .card span {
+        font-size: 20px;
+    }
+}
+
+@media (max-width: 768px) {
+
+    .sholat-grid {
+        grid-template-columns: repeat(2, 1fr);
+    }
+
+    .sholat-grid .card,
+    .sholat-grid .card:first-child,
+    .sholat-grid .card:last-child {
+        border-radius: 12px !important;
+    }
+}
+
+@media (max-width: 480px) {
+    .card h3 {
+        font-size: 14px;
+    }
+
+    .card span {
+        font-size: 18px;
+    }
+}
+
+</style>
+</head>
+
+<body>
+
+<div class="bg" id="bg"></div>
+
+<div class="header-wrapper">
+    <div class="card-header">
+        <div class="masjid">
+            <img src="Group 1.png" class="logo">
+            <div class="masjid-text">
+                <h2>Masjid Al-Barokah</h2>
+                <small>Jonggol – Kab. Bogor</small>
+            </div>
+        </div>
+    </div>
+
+    <div class="card-clock">
+        <div class="card-clockTime" id="time">--:--:--</div>
+        <div class="clock-date" id="date">--</div>
+    </div>
+</div>
+
+
+<div class="main">
+    <div class="countdownAll">
+        <div class="card-ramadhan" id="ramadhan">-- Hari Menuju Bulan Suci Ramadhan</div>
+
+        <div class="card-sholat">
+            <span id="nextSholat">--:--:--</span>
+        </div>
+    </div>
+
+    <div class="sholat-grid" id="jadwal">
+        <!-- diisi JS -->
+    </div>
+</div>
+
+<div class="marquee">
+    <marquee>
+        📢 Jadwal kajian setiap Senin ba'da Isya • Mari makmurkan masjid • Matikan HP saat sholat • 
+    </marquee>
+</div>
+
+<script>
+// hitungan mundur hijriyah
+    function getHijriParts(date) {
+    const formatter = new Intl.DateTimeFormat(
+        "id-ID-u-ca-islamic",
+        { day: "numeric", month: "numeric", year: "numeric" }
+    );
+
+    const parts = formatter.formatToParts(date);
+    const result = {};
+
+    parts.forEach(p => {
+        if (p.type !== "literal") {
+            result[p.type] = parseInt(p.value);
+        }
+    });
+
+    return {
+        day: result.day,
+        month: result.month,
+        year: result.year
+    };
+}
+
+// jam real time
+function updateClock(){
+    const now = new Date();
+
+    const hh = String(now.getHours()).padStart(2, "0");
+    const mm = String(now.getMinutes()).padStart(2, "0");
+    const ss = String(now.getSeconds()).padStart(2, "0");
+
+    document.getElementById("time").innerText =
+        `${hh}:${mm}:${ss}`;
+
+    // Tanggal Masehi
+    const masehi = now.toLocaleDateString("id-ID", {
+        weekday: "long",
+        day: "numeric",
+        month: "long",
+        year: "numeric"
+    });
+
+    // Tanggal Hijriah
+    const hijriah = new Intl.DateTimeFormat(
+        "id-ID-u-ca-islamic",
+        {
+            day: "numeric",
+            month: "long",
+            year: "numeric"
+        }
+    ).format(now);
+
+    document.getElementById("date").innerHTML =
+        `${masehi}<br>${hijriah} H`;
+}
+
+setInterval(updateClock, 1000);
+updateClock();
+
+// backgrounds
+const backgrounds = [
+    "https://i.pinimg.com/1200x/1d/05/a8/1d05a8e6e9a9279ed961a7dfe016d72b.jpg",
+    "https://images.unsplash.com/photo-1564769625905-50e93615e769",
+    "https://images.unsplash.com/photo-1542816417-0983c9c9ad53?q=80&w=1920"
+];
+let bgIndex = 0;
+function changeBG(){
+    // Preload image biar gak flickering
+    const img = new Image();
+    img.src = backgrounds[bgIndex];
+    img.onload = () => {
+        document.getElementById("bg").style.backgroundImage = `url(${backgrounds[bgIndex]})`;
+        bgIndex = (bgIndex + 1) % backgrounds.length;
+    };
+}
+changeBG();
+setInterval(changeBG, 15000);
+
+// Api jadwal sholat
+const cityId = 1204; // Kab. Bogor (Jonggol)
+const today = new Date();
+const apiUrl = `https://api.myquran.com/v2/sholat/jadwal/${cityId}/${today.getFullYear()}/${today.getMonth()+1}/${today.getDate()}`;
+
+fetch(apiUrl)
+.then(res => res.json())
+.then(data => {
+    const jadwal = data.data.jadwal;
+    const sholatTimes = {
+        Subuh: jadwal.subuh,
+        Syuruq: jadwal.terbit,
+        Dzuhur: jadwal.dzuhur,
+        Asar: jadwal.ashar,
+        Maghrib: jadwal.maghrib,
+        Isya: jadwal.isya
+    };
+
+    const container = document.getElementById("jadwal");
+    container.innerHTML = "";
+
+    Object.entries(sholatTimes).forEach(([name,time])=>{
+        container.innerHTML += `
+        <div class="card">
+            <h3>${name}</h3>
+            <span>${time}</span>
+        </div>`;
+    });
+
+    countdownSholat(sholatTimes);
+});
+
+// countdown sholat
+function countdownSholat(times){
+    setInterval(()=>{
+        const now = new Date();
+        let closest = null;
+
+        Object.entries(times).forEach(([name,time])=>{
+            const [h,m] = time.split(":");
+            const t = new Date();
+            t.setHours(h,m,0);
+
+            // Kalau sholat sudah lewat, anggap BESOK
+            if(t <= now){
+                t.setDate(t.getDate() + 1);
+            }
+
+            if(!closest || t < closest.time){
+                closest = {name, time:t};
+            }
+        });
+
+        if(closest){
+            const diff = closest.time - now;
+
+            const h = Math.floor(diff / 3600000);
+            const m = Math.floor((diff % 3600000) / 60000);
+            const s = Math.floor((diff % 60000) / 1000);
+
+            const hh = String(h).padStart(2, '0');
+            const mm = String(m).padStart(2, '0');
+            const ss = String(s).padStart(2, '0');
+
+            document.getElementById("nextSholat").innerText =
+                `${closest.name} │ ${hh}:${mm}:${ss}`;
+        }
+    },1000);
+}
+
+// countdown ramadhan
+function ramadhanHijriCountdown() {
+    const now = new Date();
+    const todayHijri = getHijriParts(now);
+
+    const RAMADHAN = 9;
+    let targetHijriYear = todayHijri.year;
+
+    if (
+        todayHijri.month > RAMADHAN ||
+        (todayHijri.month === RAMADHAN && todayHijri.day > 1)
+    ) {
+        targetHijriYear++;
+    }
+
+    let days = 0;
+    let tempDate = new Date(now);
+
+    while (days < 400) {
+        const h = getHijriParts(tempDate);
+        if (
+            h.year === targetHijriYear &&
+            h.month === RAMADHAN &&
+            h.day === 1
+        ) {
+            break;
+        }
+        days++;
+        tempDate.setDate(tempDate.getDate() + 1);
+    }
+
+    document.getElementById("ramadhan").innerText =
+        `${days} Hari Menuju Bulan Suci Ramadhan`;
+}
+
+  // Update tiap 1 jam
+  setInterval(ramadhanHijriCountdown, 3600000);
+  ramadhanHijriCountdown();
+</script>
+
+</body>
+</html>
